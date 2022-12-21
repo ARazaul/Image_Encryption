@@ -1,6 +1,10 @@
+import re
 
-FILE_PATH = "image1.jpg"
+FILE = "/home/extornos/Image_Encryption/Test Image Original/image1.jpg"
+FILE_I = "/home/extornos/Image_Encryption/Test Image Duplicate/image1_rev.jpg"
 
-with open(FILE_PATH,encoding="ISO-8859-1") as FileTxt:
-	print(FileTxt.readlines())
+from random import randint
+shift = randint(12345,98765)
 
+with open(FILE,"rb") as file:
+	print(file.read()[:shift]+file.read()[shift:])
