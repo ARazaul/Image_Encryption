@@ -1,13 +1,27 @@
-# Binary File Encryption/Decryption Tool
+# Image Encryption/Decryption Tool
 
-This tool provides the ability to encrypt and decrypt binary files. 
-The tool takes a binary file located at a specific path, encrypts it and saves the encrypted file to a different path. 
-The encrypted file can then be decrypted and saved to yet another path. 
+This is a simple Python script that encrypts and decrypts images using a pass phrase. The script reads an image from a specified directory, encrypts or decrypts it, and saves the new file in another specified directory.
 
-The encryption and decryption processes use a random number generator that is seeded by a `passlock` value provided by the user. 
-The `passlock` value is used to ensure the same encryption/decryption result every time the tool is run with the same value. 
+## Requirements
 
-The tool contains two functions, `encrypt` and `decrypt`, that handle the encryption and decryption processes, respectively. 
-When the tool is run, both functions are executed, encrypting and then decrypting the binary file. 
+To use this script, you will need:
 
-Note: The paths to the binary files and the range of the random number generator seed are hard-coded in the tool and should be changed as needed.
+- Python 3.x
+- An image file to encrypt/decrypt
+
+## Usage
+
+1. Clone or download the repository to your local machine.
+2. Open the terminal and navigate to the directory where the script is located.
+3. Run the script using the command `python ImageEncryptor.py`.
+4. Follow the instructions on the menu to encrypt or decrypt your image file.
+
+## How It Works
+
+The script uses a simple encryption algorithm that reverses a portion of the image data. The user enters a pass phrase, which is used to generate a random key that determines the portion of the image data that is reversed.
+
+When encrypting an image, the script reads the original file, encrypts the data, and saves it to a new file. When decrypting an image, the script reads the encrypted file, decrypts the data, and saves it to a new file.
+
+## Disclaimer
+
+This script is intended for educational purposes only. It is not a secure encryption algorithm and should not be used to encrypt sensitive data.
