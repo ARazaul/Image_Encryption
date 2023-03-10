@@ -1,6 +1,6 @@
 # Image Encryption/Decryption Tool
 
-This is a simple Python script that encrypts and decrypts images using a pass phrase. The script reads an image from a specified directory, encrypts or decrypts it, and saves the new file in another specified directory.
+A Python script that encrypts and decrypts images using a pass phrase. The script reads an image from a specified directory, encrypts or decrypts it, and saves the new file in another specified directory.
 
 ## Requirements
 
