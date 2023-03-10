@@ -1,39 +1,58 @@
-from random import randint
-from random import seed
+import os
+import random
 
-def encrypt():
-	Original = "/home/xzron/Codes/O.png"
-	Duplicate = "/home/xzron/Codes/OED.png"
-	temp_list = []
 
-	with open(Original,"rb") as Fileread:
-		temp_list.append(Fileread.read())
-		temp_list_len = len(temp_list[0])
+class ImageEncryptor:
+    def __init__(self):
+        self.system_path = os.getcwd().replace('\\', '\\\\')
 
-		seed(int(input("Enter Passlock: ")))
-		value = randint(2480786,9153151)
-		#rint(value)
-		with open(Duplicate,"wb") as Filewrite:
-			Filewrite.write(temp_list[0][:value][::-1]+temp_list[0][value:][::-1])
+    def menu(self):
+        print("\nEncrypt Image\n1. Encrypt Image\n2. Decrypt Image\n3. Exit\n")
 
-	Filewrite.close()
-	Fileread.close()
+    def encrypt(self, pass_phrase, image_name):
+        original_file = os.path.join(self.system_path, "Encrypt", image_name)
+        duplicate_file = os.path.join(self.system_path, "Decrypt", image_name)
+        with open(original_file, "rb") as original, open(duplicate_file, "wb") as duplicate:
+            original_data = original.read()
+            key = random.randint(2480786, 9153151)
+            encrypted_data = original_data[:key][::-1] + original_data[key:][::-1]
+            duplicate.write(encrypted_data)
 
-def decrypt():
-	Original = "/home/xzron/Codes/OED.png"
-	Duplicate = "/home/xzron/Codes/ODD.png"
-	temp_list = []
+    def decrypt(self, pass_phrase, image_name):
+        original_file = os.path.join(self.system_path, "Decrypt", image_name)
+        duplicate_file = os.path.join(self.system_path, "Encrypt", image_name)
+        with open(original_file, "rb") as original, open(duplicate_file, "wb") as duplicate:
+            original_data = original.read()
+            key = random.randint(2480786, 9153151)
+            decrypted_data = original_data[:key][::-1] + original_data[key:][::-1]
+            duplicate.write(decrypted_data)
 
-	seed(int(input("Enter Passlock: ")))
-	user_key = randint(2480786,9153151)
-	#print(user_key)
-	with open(Original,"rb") as Fileread:
-		temp_list.append(Fileread.read())
-		with open(Duplicate,"wb") as Filewrite:
-			Filewrite.write(temp_list[0][:user_key][::-1]+temp_list[0][user_key:][::-1])
+    def run(self):
+        while True:
+            self.menu()
+            user_input = input("Enter: ").lower()
+            if user_input == "1" or user_input == "encrypt":
+                try:
+                    image_name = input("Image Name: ")
+                    self.encrypt(input("Pass Phrase: "), image_name)
+                    os.remove(os.path.join(self.system_path, "Encrypt", image_name))
+                    print("\nImage Encrypted Successfully\n")
+                except FileNotFoundError:
+                    print("File Not Found")
+            elif user_input == "2" or user_input == "decrypt":
+                try:
+                    image_name = input("Image Name: ")
+                    self.decrypt(input("Pass Phrase: "), image_name)
+                    os.remove(os.path.join(self.system_path, "Decrypt", image_name))
+                    print("\nImage Decrypted Successfully\n")
+                except FileNotFoundError:
+                    print("File Not Found")
+            elif user_input == "3" or user_input == "exit":
+                exit()
+            else:
+                print("Invalid input. Please try again.")
 
-	Fileread.close()
-	Filewrite.close()
 
-encrypt()
-decrypt()
+if __name__ == "__main__":
+    image_encryptor = ImageEncryptor()
+    image_encryptor.run()
